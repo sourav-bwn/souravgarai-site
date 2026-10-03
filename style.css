@@ -197,3 +197,21 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--mut);font-siz
 #wipe.dn{animation:wd .38s cubic-bezier(.7,0,.2,1) forwards}
 .nbk{display:none}
 @media(max-width:860px){.nbk{display:flex;gap:10px;justify-content:space-between;padding:0 0 10px;margin-bottom:4px;border-bottom:1px solid var(--line)}.nb{flex:1;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:700 14px inherit;font-family:inherit;cursor:pointer}.nb-b{border-color:rgba(255,170,70,.5);color:var(--a)}}
+/* v10 case studies + CTA */
+.btn.big{padding:18px 34px;font-size:17px;border-radius:16px;box-shadow:0 8px 0 color-mix(in srgb,var(--b) 60%,#000),0 0 38px rgba(255,140,30,.35)}
+.hnote{margin:14px 0 0;font-size:13px;color:var(--mut)}
+.nav-cta{padding:10px 18px;border-radius:30px;background:linear-gradient(135deg,var(--a),var(--b));color:var(--on)!important;font-weight:800;font-size:14px;margin-left:6px;box-shadow:0 0 22px rgba(255,140,30,.35);white-space:nowrap}
+.nl a.nav-cta:hover{color:var(--on);background:linear-gradient(135deg,var(--a),var(--b));filter:brightness(1.08)}
+@media(max-width:860px){.nav-cta{text-align:center;margin:8px 0 0;padding:15px;font-size:16px;order:-1}.nbk{order:-2}}
+.cs3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:30px 0}
+.cs3 .sk b{color:var(--a);font-size:14px;letter-spacing:2px}
+.cs3 .sk p,.cs3 .sk li{font-size:14.5px;line-height:1.6;color:var(--mut)}
+.cs3 ul{margin:8px 0 0;padding-left:18px}.cs3 li{margin:6px 0}
+@media(max-width:860px){.cs3{grid-template-columns:1fr}}
+.cs-feat{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:14px 0 8px}
+@media(max-width:860px){.cs-feat{grid-template-columns:1fr}}
+.tgc{display:flex;flex-direction:column;gap:8px;width:min(88%,360px)}
+.tgc .m{padding:9px 13px;border-radius:14px;font-size:13px;max-width:85%}
+.tgc .u{align-self:flex-end;background:color-mix(in srgb,var(--a) 28%,var(--bg2));color:var(--ink)}
+.tgc .b{align-self:flex-start;background:var(--card);border:1px solid var(--line);color:var(--mut)}
+.tgc .f{display:flex;gap:10px;align-items:center;color:var(--ink)}.tgc .f span{width:34px;height:34px;border-radius:50%;background:var(--c);color:#000;display:grid;place-items:center;font-size:13px}.tgc .f b{display:block;font-size:13px}.tgc .f i{font-style:normal;font-size:11px;color:var(--mut)}
