@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          for f in [0-9]*-*; do [ -e "$f" ] && git mv "$f" "${f#*-}"; done
+          for f in [0-9]*-*; do [ -f "$f" ] && git mv -f "$f" "${f#*-}"; done
           git config user.name "sourav-bwn"
           git config user.email "souravgarai.bwn@gmail.com"
           git diff --cached --quiet || (git commit -m "Fix uploaded file names" && git push)
