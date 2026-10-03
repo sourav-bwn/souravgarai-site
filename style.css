@@ -176,3 +176,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--mut);font-siz
 .mside .btn.s{background:transparent;border:1px solid rgba(255,170,70,.55);color:var(--ink);box-shadow:none}
 .mt-ln{position:absolute;width:1px;background:linear-gradient(180deg,rgba(255,200,100,.15),#f5b84a);display:none;pointer-events:none}
 @media(max-width:860px){.mgrid{grid-template-columns:minmax(0,1fr) 60%;gap:22px 10px;padding-right:0}.mt-idx{right:10px}.mt-idx:after{display:none}.mt-ln{display:block}.mt{overflow:visible}.hx{margin-right:-4px}}
+/* v5 zoom */
+.hx-i img{transform:scale(1.32);transform-origin:56% 4%;object-position:56% top}
+@media(max-width:860px){.mgrid{row-gap:8px}.mtx{margin-bottom:0}.sl{margin-top:26px}.mt .ul{margin-bottom:14px}}
+.hx-i img{transform:translateY(-4%) scale(1.12);transform-origin:56% 0}
