@@ -123,3 +123,12 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--mut);font-siz
 .scr.tgw{aspect-ratio:16/8}
 .ab .sub{max-width:none}
 @media(max-width:860px){.thumb,.card.big .thumb{height:170px}}
+/* blog, prose, chat */
+.prose{max-width:720px;margin:0 0 60px}.prose p{color:var(--mut);font-size:17px;line-height:1.75;margin:0 0 16px}.prose .ph2{font-size:clamp(20px,3.5vw,28px);margin:30px 0 10px;text-transform:none;letter-spacing:0}.prose .cta{margin:26px 0}.prose .nx{font-size:14px}.prose .nx a{color:var(--a)}
+#bot{position:fixed;right:16px;bottom:16px;z-index:60}.bt{background:var(--a);color:#1a0d00;border:0;border-radius:999px;padding:13px 20px;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 8px 26px rgba(245,158,11,.35)}
+.bw{position:absolute;right:0;bottom:56px;width:min(340px,calc(100vw - 32px));background:var(--bg2,#150c08);border:1px solid var(--line);border-radius:18px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}.bw[hidden]{display:none}
+.bh{padding:12px 14px;border-bottom:1px solid var(--line);position:relative}.bh b{display:block;font-size:15px}.bh span{font-size:12px;color:var(--mut)}.bx{position:absolute;right:10px;top:8px;background:none;border:0;color:var(--mut);font-size:22px;cursor:pointer}
+.bm{height:min(300px,45vh);overflow:auto;padding:12px;display:flex;flex-direction:column;gap:8px}.m{padding:9px 12px;border-radius:14px;font-size:14px;line-height:1.5;max-width:90%}.m.b{background:rgba(255,255,255,.07);align-self:flex-start}.m.u{background:var(--a);color:#1a0d00;align-self:flex-end}.m a{color:var(--c);font-weight:700}
+.bs{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 8px}.bs button{background:none;border:1px solid var(--line);color:var(--fg,#fff);border-radius:999px;padding:5px 10px;font-size:12px;cursor:pointer}
+.bf{display:flex;gap:6px;padding:10px;border-top:1px solid var(--line)}.bf input{flex:1;min-width:0;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:10px;padding:10px;color:inherit;font-size:16px}.bf button{background:var(--a);border:0;border-radius:10px;padding:0 14px;font-weight:800;color:#1a0d00}
+[data-theme=light] .bw{background:#fff}[data-theme=light] .m.b{background:#f1ece6}[data-theme=light] .bf input{background:#f5f1ec}

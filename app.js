@@ -37,4 +37,9 @@ $$('.fl').forEach(function(f){f.onclick=function(){$$('.fl').forEach(function(x)
 var rl=$('#repos');if(rl&&S){rl.innerHTML=S.repos.map(function(r){return '<a class="rp rv" href="'+r.url+'" target="_blank" rel="noopener"><b>'+r.name+'</b><span>'+(r.desc||'')+'</span><em>'+(r.lang||'Docs')+' · '+r.created.slice(0,7)+'</em></a>'}).join('');$$('.rp',rl).forEach(function(x){io.observe(x)})}
 // intake form -> mailto
 var f=$('#intake');if(f)f.addEventListener('submit',function(e){e.preventDefault();var v=function(n){return f.elements[n].value.trim()};var body='Name: '+v('name')+'\nEmail: '+v('email')+'\nProject type: '+v('type')+'\n\n'+v('msg');location.href='mailto:souravgarai.bwn@gmail.com?subject='+encodeURIComponent('Project enquiry: '+v('type'))+'&body='+encodeURIComponent(body)});
+
+// live GitHub refresh (falls back to baked numbers)
+(function(){function put(n){$$('[data-fill=repos]').forEach(function(e){e.dataset.count=n;setTimeout(function(){if(e.classList.contains('in'))e.textContent=n},1700)})}
+try{var c=JSON.parse(localStorage.getItem('sg-gh')||'null');if(c&&Date.now()-c.t<36e5){if(c.r)put(c.r);return}}catch(e){}
+fetch('https://api.github.com/users/sourav-bwn').then(function(r){return r.ok?r.json():null}).then(function(u){if(!u||!u.public_repos)return;put(u.public_repos);try{localStorage.setItem('sg-gh',JSON.stringify({t:Date.now(),r:u.public_repos}))}catch(e){}}).catch(function(){})})();
 })();
