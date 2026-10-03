@@ -1,0 +1,39 @@
+name: refresh-github-data
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rebuild data.js
+        run: |
+          python3 - <<'PY'
+          import json,re,urllib.request
+          s=open('data.js').read()
+          d=json.loads(s[s.index('=')+1:].rstrip().rstrip(';'))
+          h=urllib.request.urlopen(urllib.request.Request('https://github.com/users/sourav-bwn/contributions',headers={'User-Agent':'Mozilla/5.0'})).read().decode()
+          tips={m[0]:m[1] for m in re.findall(r'for="(contribution-day-component-[\d-]+)"[^>]*>([^<]*)',h)}
+          days=[]
+          for m in re.finditer(r'<td[^>]*data-date="([\d-]+)"[^>]*id="(contribution-day-component-[\d-]+)"[^>]*data-level="(\d)"',h):
+              t=tips.get(m.group(2),'')
+              n=re.match(r'(\d+) contribution',t)
+              days.append([m.group(1),int(m.group(3)),int(n.group(1)) if n else 0])
+          days.sort()
+          if len(days)>300:
+              d['days']=days
+              d['total']=sum(x[2] for x in days)
+          u=json.load(urllib.request.urlopen(urllib.request.Request('https://api.github.com/users/sourav-bwn',headers={'User-Agent':'sg'})))
+          if u.get('public_repos'): d['publicRepos']=u['public_repos']
+          open('data.js','w').write('window.SG='+json.dumps(d)+';')
+          PY
+      - name: Commit if changed
+        run: |
+          git config user.name "sourav-bwn"
+          git config user.email "souravgarai.bwn@gmail.com"
+          git add data.js
+          git diff --cached --quiet || (git commit -m "Refresh GitHub data" && git push)
