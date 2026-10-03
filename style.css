@@ -183,3 +183,5 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--mut);font-siz
 /* v6 ambient bg */
 .mt:before{content:"";position:absolute;inset:0 -24px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 70% 55% at 88% 62%,rgba(255,130,30,.24),rgba(255,130,30,.08) 45%,transparent 72%),radial-gradient(ellipse 45% 30% at 100% 38%,rgba(255,150,40,.22),transparent 70%)}
 .mt:after{content:"";position:absolute;inset:0 -24px;z-index:-1;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,170,70,.09) 0 1px,transparent 1px 26px),repeating-linear-gradient(90deg,rgba(255,170,70,.09) 0 1px,transparent 1px 26px);-webkit-mask-image:radial-gradient(ellipse 75% 60% at 82% 65%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 75% 60% at 82% 65%,#000 20%,transparent 75%)}
+/* v7 rounded */
+.hx-b{clip-path:inset(0 round 20px)}.hx-i{clip-path:inset(0 round 18.5px)}
