@@ -132,3 +132,14 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--mut);font-siz
 .bs{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 8px}.bs button{background:none;border:1px solid var(--line);color:var(--fg,#fff);border-radius:999px;padding:5px 10px;font-size:12px;cursor:pointer}
 .bf{display:flex;gap:6px;padding:10px;border-top:1px solid var(--line)}.bf input{flex:1;min-width:0;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:10px;padding:10px;color:inherit;font-size:16px}.bf button{background:var(--a);border:0;border-radius:10px;padding:0 14px;font-weight:800;color:#1a0d00}
 [data-theme=light] .bw{background:#fff}[data-theme=light] .m.b{background:#f1ece6}[data-theme=light] .bf input{background:#f5f1ec}
+/* designed portrait */
+.hs{position:relative;aspect-ratio:4/5;width:100%;max-width:400px;justify-self:end;border-radius:30px;overflow:hidden;border:1px solid color-mix(in srgb,var(--a) 45%,transparent);background:radial-gradient(circle at 50% 38%,#ffa733 0%,#f4631a 28%,#8a2a08 58%,#1d0b05 100%);box-shadow:0 30px 80px -24px rgba(249,115,22,.55),0 0 0 6px color-mix(in srgb,var(--a) 12%,transparent);transform:rotate(2deg);transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.hs:hover{transform:rotate(0) scale(1.02)}
+.hs-t{position:absolute;left:0;right:0;top:6%;text-align:center;font-weight:900;font-size:clamp(40px,12vw,66px);letter-spacing:-1px;color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.35);line-height:1;white-space:nowrap}
+.hs-r{position:absolute;left:50%;top:46%;width:74%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:2px solid rgba(34,211,238,.7);box-shadow:0 0 40px rgba(34,211,238,.35),inset 0 0 40px rgba(34,211,238,.15)}
+.hs-r2{position:absolute;left:50%;top:46%;width:94%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:1px dashed rgba(255,255,255,.3);animation:hspin 40s linear infinite}
+@keyframes hspin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.hs img{position:absolute;left:50%;bottom:-2%;height:104%;width:auto;transform:translateX(-50%);filter:drop-shadow(0 0 14px rgba(34,211,238,.35)) drop-shadow(0 12px 24px rgba(0,0,0,.45));-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
+.hs .tag{position:absolute;left:14px;bottom:14px;z-index:2;background:rgba(10,6,5,.7);backdrop-filter:blur(8px);color:#fff}
+@media(max-width:860px){.hs{justify-self:center;max-width:340px}}
+.nm .hs-r2{animation:none}
