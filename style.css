@@ -189,3 +189,11 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--mut);font-siz
 .hx:before{inset:-9% -9% -6% -46%;clip-path:polygon(40% 30%,58% 14%,66% 6%,90% 6%,100% 14%,100% 100%,0 100%,0 74%,16% 66%,16% 44%,40% 30%);background:repeating-linear-gradient(0deg,rgba(255,160,60,.1) 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,rgba(255,160,60,.1) 0 1px,transparent 1px 22px),linear-gradient(160deg,rgba(255,150,50,.34),rgba(40,22,10,.6) 55%,rgba(14,9,6,.85))}
 .hx:before{inset:-13% -9% -6% -46%;clip-path:polygon(40% 34%,58% 18%,66% 9%,90% 9%,100% 17%,100% 100%,0 100%,0 76%,16% 68%,16% 46%,40% 34%)}
 .hx:before{clip-path:polygon(40% 34%,58% 14%,66% 4%,90% 4%,100% 12%,100% 100%,0 100%,0 76%,16% 68%,16% 46%,40% 34%)}
+/* v9 loader + nav back */
+#wipe{background:var(--bg);display:grid;place-items:center}
+#wipe:before{content:"";width:46px;height:46px;border-radius:50%;border:3px solid transparent;border-top-color:var(--a);border-right-color:var(--c);animation:sp .7s linear infinite}
+#wipe:after{content:"SG";position:absolute;font-weight:900;font-size:13px;color:var(--a);letter-spacing:1px}
+#wipe.up{transition:transform .26s cubic-bezier(.6,0,.2,1)}
+#wipe.dn{animation:wd .38s cubic-bezier(.7,0,.2,1) forwards}
+.nbk{display:none}
+@media(max-width:860px){.nbk{display:flex;gap:10px;justify-content:space-between;padding:0 0 10px;margin-bottom:4px;border-bottom:1px solid var(--line)}.nb{flex:1;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:700 14px inherit;font-family:inherit;cursor:pointer}.nb-b{border-color:rgba(255,170,70,.5);color:var(--a)}}
