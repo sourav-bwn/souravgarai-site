@@ -43,3 +43,5 @@ var f=$('#intake');if(f)f.addEventListener('submit',function(e){e.preventDefault
 try{var c=JSON.parse(localStorage.getItem('sg-gh')||'null');if(c&&Date.now()-c.t<36e5){if(c.r)put(c.r);return}}catch(e){}
 fetch('https://api.github.com/users/sourav-bwn').then(function(r){return r.ok?r.json():null}).then(function(u){if(!u||!u.public_repos)return;put(u.public_repos);try{localStorage.setItem('sg-gh',JSON.stringify({t:Date.now(),r:u.public_repos}))}catch(e){}}).catch(function(){})})();
 })();
+(function(){function ln(){var m=document.querySelector('.mt'),i=m&&m.querySelector('.mt-idx'),h=m&&m.querySelector('.hx-b');if(!h)return;var l=m.querySelector('.mt-ln');if(!l){l=document.createElement('div');l.className='mt-ln';m.appendChild(l)}var M=m.getBoundingClientRect(),I=i.getBoundingClientRect(),H=h.getBoundingClientRect();l.style.left=(I.left+I.width/2-M.left)+'px';l.style.top=(I.bottom-M.top+4)+'px';l.style.height=Math.max(0,H.top-I.bottom-4)+'px'}
+addEventListener('load',ln);addEventListener('resize',ln);setTimeout(ln,600);setTimeout(ln,2000)})();
