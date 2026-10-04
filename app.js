@@ -33,7 +33,7 @@ var cu2=$('#cur');if(cu2){var cx=0,cy=0,tx=0,ty=0;addEventListener('pointermove'
 // graph
 var S=window.SG;$$('[data-graph]').forEach(function(g){if(!S)return;var n=+g.dataset.graph||S.days.length;if(innerWidth<700&&n>190)n=189;var days=S.days.slice(-n);g.style.gridTemplateColumns='none';var cols=Math.ceil(days.length/7);g.style.gridTemplateColumns='repeat('+cols+',1fr)';g.innerHTML=days.map(function(x,i){return '<i data-l="'+x[1]+'" title="'+x[2]+' contributions on '+x[0]+'" style="transition-delay:'+(i*3)+'ms"></i>'}).join('')});
 $$('[data-ach]').forEach(function(el){if(!S)return;var seen={};el.innerHTML=S.ach.filter(function(a){return seen[a.name]?0:seen[a.name]=1}).map(function(a){return '<div class="bd"><img src="'+a.img+'" alt="'+a.name+' achievement" loading="lazy">'+a.name+'</div>'}).join('')});
-$$('[data-fill]').forEach(function(el){if(!S)return;var k=el.dataset.fill;el.dataset.count=k==='total'?S.total:S.publicRepos});
+$$('[data-fill]').forEach(function(el){if(!S)return;var k=el.dataset.fill;el.dataset.count=k==='total'?S.total:S.publicRepos;el.textContent=el.dataset.count});
 // filters
 $$('.fl').forEach(function(f){f.onclick=function(){$$('.fl').forEach(function(x){x.classList.remove('on')});f.classList.add('on');var t=f.dataset.f;$$('.row').forEach(function(r){r.classList.toggle('hide',t!=='all'&&r.dataset.t.indexOf(t)<0)})}});
 // repos
