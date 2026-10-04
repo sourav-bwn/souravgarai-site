@@ -215,3 +215,8 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--mut);font-siz
 .tgc .u{align-self:flex-end;background:color-mix(in srgb,var(--a) 28%,var(--bg2));color:var(--ink)}
 .tgc .b{align-self:flex-start;background:var(--card);border:1px solid var(--line);color:var(--mut)}
 .tgc .f{display:flex;gap:10px;align-items:center;color:var(--ink)}.tgc .f span{width:34px;height:34px;border-radius:50%;background:var(--c);color:#000;display:grid;place-items:center;font-size:13px}.tgc .f b{display:block;font-size:13px}.tgc .f i{font-style:normal;font-size:11px;color:var(--mut)}
+
+/* tool icons */
+.pic{display:block;width:46px;height:46px;margin-bottom:12px;filter:drop-shadow(0 0 12px rgba(255,140,30,.3))}
+.card .pic{position:absolute;right:16px;top:16px;margin:0;width:52px;height:52px}
+[data-theme=light] .pic{filter:none}
