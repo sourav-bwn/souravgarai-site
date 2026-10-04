@@ -225,8 +225,8 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--mut);font-siz
 .tab{flex:none;display:flex;align-items:center;gap:8px;padding:11px 16px;border-radius:14px;background:var(--card);border:1px solid var(--line);font-weight:800;font-size:14px;color:var(--mut)}
 .tab.on{background:var(--a);color:var(--on);border-color:var(--a);box-shadow:0 5px 0 color-mix(in srgb,var(--b) 60%,#000)}
 .tab img{width:22px;height:22px}
-.tp{background:linear-gradient(160deg,#1c0f0a,#140b08);border:1px solid var(--line);border-radius:24px;padding:22px;margin:0 0 34px;position:relative;overflow:hidden}
-.tp:before{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(255,140,30,.22),transparent 65%)}
+.tp{background:linear-gradient(160deg,#1c0f0a,#140b08);border:1px solid var(--line);border-radius:24px;padding:22px;margin:0 0 34px;position:relative;overflow:hidden;overflow:clip}
+.tp:before{content:"";position:absolute;right:0;top:0;pointer-events:none;width:220px;height:220px;background:radial-gradient(circle,rgba(255,140,30,.22),transparent 65%)}
 .tph{display:flex;align-items:center;gap:12px;margin-bottom:6px}.tph img{width:46px;height:46px}.tph h2{font-size:26px;margin:0}
 .tpl{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--a)}
 .tpd{color:var(--mut);margin:4px 0 16px;font-size:15px}
