@@ -313,3 +313,11 @@ button.tl b{color:var(--ink)}
 @media(max-width:820px){.svg2{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.svg2{gap:10px}.sv{padding:14px}.sv h4{font-size:15px}.sv p{font-size:12.5px}.sv .fi2{width:40px;height:40px;margin-bottom:8px}.svp .pkh h3{font-size:22px}}
 .svg2 .sv:last-child{grid-column:1/-1}
+
+
+/* Theme-aware tool viewer surfaces (including PDF, news and downloader controls). */
+.tp{background:linear-gradient(160deg,var(--card),var(--bg2))}
+.inp,.pv,.q,.cat,.st,.tl,.fl,.cmp div,.fld input,.tn{background:var(--bg2)}
+.q.on,.tl.on{background:color-mix(in srgb,var(--a) 10%,var(--card))}
+.cat.on,button.cat.on{color:var(--on)}
+.pr{background:var(--bg2)}
