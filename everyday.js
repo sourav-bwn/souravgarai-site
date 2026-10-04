@@ -1,7 +1,7 @@
 'use strict';
 (()=>{
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],tool=$('main').dataset.tool;
-$('.burger').onclick=()=>$('.nl').classList.toggle('open'); $$('.nb').forEach(b=>b.onclick=()=>$('.nl').classList.remove('open')); $('.tog').onclick=()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==='light'?'dark':'light'};
+$('.burger').onclick=()=>$('.nl').classList.toggle('open'); $$('.nb').forEach(b=>b.onclick=()=>$('.nl').classList.remove('open')); $('.tog').onclick=()=>{const t=document.documentElement.dataset.theme==='light'?'dark':'light';document.documentElement.dataset.theme=t;try{localStorage.setItem('sg-theme',t)}catch(e){}};
 const val=id=>$('#'+id).value.trim(),num=id=>Number(val(id)),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:2}).format(n);
 const status=s=>$('#status').textContent=s;
