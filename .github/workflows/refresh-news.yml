@@ -1,0 +1,78 @@
+name: refresh-news
+on:
+  schedule:
+    - cron: "30 1 * * *"
+    - cron: "40 2 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  news:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build news.json
+        run: |
+          python3 - <<'PY'
+          import json,re,urllib.request,urllib.parse,html,datetime,email.utils
+          UA={'User-Agent':'Mozilla/5.0 (compatible; sg-news/1.0)'}
+          def get(u):
+              return urllib.request.urlopen(urllib.request.Request(u,headers=UA),timeout=30).read().decode('utf-8','replace')
+          def gn(path=None,q=None):
+              base='hl=en-IN&gl=IN&ceid=IN:en'
+              if q: u='https://news.google.com/rss/search?q='+urllib.parse.quote(q)+'+when:1d&'+base
+              else: u='https://news.google.com/rss/'+path+('&' if '?' in path else '?')+base
+              x=get(u); out=[]
+              for it in re.findall(r'<item>(.*?)</item>',x,re.S):
+                  t=re.search(r'<title>(.*?)</title>',it,re.S); l=re.search(r'<link>(.*?)</link>',it,re.S)
+                  s=re.search(r'<source[^>]*>(.*?)</source>',it,re.S); d=re.search(r'<pubDate>(.*?)</pubDate>',it,re.S)
+                  if not(t and l): continue
+                  title=html.unescape(re.sub(r'<[^>]+>','',t.group(1))).strip()
+                  src=html.unescape(s.group(1)).strip() if s else ''
+                  if src and title.endswith(' - '+src): title=title[:-(len(src)+3)]
+                  ts=''
+                  if d:
+                      try: ts=email.utils.parsedate_to_datetime(d.group(1)).astimezone(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+                      except Exception: pass
+                  out.append({'t':title,'u':html.unescape(l.group(1)).strip(),'s':src,'d':ts})
+                  if len(out)==5: break
+              return out
+          def trends():
+              x=get('https://trends.google.com/trending/rss?geo=IN'); out=[]
+              for it in re.findall(r'<item>(.*?)</item>',x,re.S):
+                  t=re.search(r'<title>(.*?)</title>',it,re.S); n=re.search(r'<ht:approx_traffic>(.*?)</ht:approx_traffic>',it,re.S)
+                  if t:
+                      q=html.unescape(t.group(1)).strip()
+                      out.append({'t':q,'u':'https://www.google.com/search?q='+urllib.parse.quote(q),'s':('Searches: '+n.group(1)) if n else 'Google Trends India','d':''})
+                  if len(out)==5: break
+              return out
+          def gh():
+              h=get('https://github.com/trending?since=daily'); out=[]
+              for a in re.findall(r'<article class="Box-row">(.*?)</article>',h,re.S):
+                  m=re.search(r'<h2[^>]*>.*?href="/([^"]+)"',a,re.S)
+                  if not m: continue
+                  repo=m.group(1).strip()
+                  d=re.search(r'<p class="col-9[^>]*>(.*?)</p>',a,re.S)
+                  st=re.search(r'([\d,]+) stars today',a)
+                  desc=' '.join(html.unescape(re.sub(r'<[^>]+>','',d.group(1))).split()) if d else ''
+                  out.append({'t':repo,'u':'https://github.com/'+repo,'s':(st.group(1)+' stars today') if st else 'GitHub Trending','x':desc[:140],'d':''})
+                  if len(out)==5: break
+              return out
+          cats=[('india',gn,{'path':'headlines/section/geo/India'}),('world',gn,{'path':'headlines/section/topic/WORLD'}),('tech',gn,{'path':'headlines/section/topic/TECHNOLOGY'}),('sports',gn,{'path':'headlines/section/topic/SPORTS'}),('movies',gn,{'q':'movies OR bollywood OR box office'}),('ai',gn,{'q':'artificial intelligence'}),('trending',trends,{}),('github',gh,{})]
+          old={}
+          try: old=json.load(open('news.json')).get('c',{})
+          except Exception: pass
+          res={}
+          for k,f,a in cats:
+              try: v=f(**a)
+              except Exception as e: v=[]
+              res[k]=v if v else old.get(k,[])
+          open('news.json','w').write(json.dumps({'updated':datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),'c':res},ensure_ascii=False,separators=(',',':')))
+          print({k:len(v) for k,v in res.items()})
+          PY
+      - name: Commit if changed
+        run: |
+          git config user.name "sourav-bwn"
+          git config user.email "souravgarai.bwn@gmail.com"
+          git add news.json
+          git diff --cached --quiet || (git commit -m "Refresh news digest" && git push)
