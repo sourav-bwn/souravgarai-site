@@ -2,3 +2,4 @@
 .everyday .table-scroll:before{content:'Scroll sideways for all columns →';display:block;font-size:12px;color:#bba99e;padding:8px 0}@media(min-width:850px){.everyday .table-scroll:before{display:none}}
 .everyday [hidden]{display:none!important}.everyday textarea{margin-bottom:18px}.everyday .work input[type=range]{accent-color:#ffad58}
 .work h2{font-size:26px;margin:16px 0}.note a{text-decoration:underline;color:#ffad58}.scan-thumb{display:flex;align-items:center;gap:15px;border:1px solid #48352a;padding:12px;margin-top:12px}.scan-thumb img{width:70px;height:95px;object-fit:contain;background:#fff}.scan-thumb button{margin-left:auto;padding:8px;color:#fff;background:#493225;border:0;border-radius:8px}
+.everyday-nav{height:auto;display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8px;margin:30px 0}.everyday-nav a{border:1px solid #48352a;padding:10px 14px;border-radius:30px;font-size:13px}.everyday-nav a:hover{background:#ffad58;color:#111}
