@@ -80,14 +80,27 @@ var nData=null,nCat='india',nLoading=false;
 function ago(d){if(!d)return '';var m=Math.round((Date.now()-new Date(d).getTime())/60000);if(m<2)return 'just now';if(m<60)return m+' min ago';var h=Math.round(m/60);if(h<24)return h+' h ago';return Math.round(h/24)+' d ago'}
 function loadNews(){
   if(nData||nLoading)return;nLoading=true;
-  fetch('news.json',{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){nData=j;nLoading=false;drawNews()}).catch(function(){nLoading=false;$('#n-list').innerHTML='<div class="err">Could not load today\'s digest. Try again in a bit.</div>'});
+  var J=function(u){return fetch(u,{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.json()})};
+  Promise.all([J('api/news').catch(function(){return null}),J('news.json').catch(function(){return null})]).then(function(r){
+    var live=r[0]&&r[0].c?r[0]:null,snap=r[1]&&r[1].c?r[1]:null;
+    if(!live&&!snap)throw 0;
+    var c={},lk={};
+    CATS.forEach(function(k){k=k[0];if(live&&live.c[k]&&live.c[k].length){c[k]=live.c[k];lk[k]=1}else c[k]=(snap&&snap.c[k])||[]});
+    nData={c:c,lk:lk,live:live?live.updated:null,snap:snap?snap.updated:null};
+    nLoading=false;drawNews();
+  }).catch(function(){nLoading=false;$('#n-list').innerHTML='<div class="err">Could not load today\'s digest. Try again in a bit.</div>'});
 }
 function drawNews(){
   $('#n-cats').innerHTML=CATS.map(function(c){return '<button type="button" class="cat'+(c[0]===nCat?' on':'')+'" data-c="'+c[0]+'">'+c[1]+'</button>'}).join('');
   $$('#n-cats .cat').forEach(function(b){b.addEventListener('click',function(){nCat=b.dataset.c;drawNews()})});
   var l=(nData.c[nCat]||[]);
   $('#n-list').innerHTML=l.length?l.map(function(s,i){return '<a class="st" href="'+esc(s.u)+'" target="_blank" rel="noopener"><span class="n">'+(i+1)+'</span><div><b>'+esc(s.t)+'</b>'+(s.x?'<small class="dsc">'+esc(s.x)+'</small>':'')+'<small>'+esc([s.s,ago(s.d)].filter(Boolean).join(' · '))+'</small></div></a>'}).join(''):'<div class="err">Nothing here right now.</div>';
-  try{var d=new Date(nData.updated);$('#n-up').textContent='Updated '+d.toLocaleString('en-IN',{timeZone:'Asia/Kolkata',day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})+' IST. Headlines link to the original publishers.'}catch(e){}
+  try{
+    var fresh=!!nData.lk[nCat],t=fresh?nData.live:nData.snap,d=new Date(t),age=(Date.now()-d.getTime())/36e5;
+    var fmt=d.toLocaleString('en-IN',{timeZone:'Asia/Kolkata',day:'numeric',month:'short',hour:'numeric',minute:'2-digit'});
+    var up=$('#n-up');up.innerHTML=(fresh?'Updated live ':'Last updated ')+'<b>'+fmt+' IST</b>. Headlines link to the original publishers.';
+    if(!fresh&&age>36)$('#n-list').insertAdjacentHTML('afterbegin','<div class="err"><b>Refresh is behind.</b> This category is from '+fmt+' IST ('+Math.floor(age/24>=1?age/24:age)+(age/24>=1?' days':' hours')+' old). The automatic update did not run, so these may not be today\'s headlines.</div>');
+  }catch(e){}
 }
 
 /* ---------- PDF ---------- */
