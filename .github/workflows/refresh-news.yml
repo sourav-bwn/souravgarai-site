@@ -1,8 +1,10 @@
 name: refresh-news
 on:
   schedule:
-    - cron: "30 1 * * *"
-    - cron: "40 2 * * *"
+    - cron: "23 0 * * *"
+    - cron: "41 1 * * *"
+    - cron: "53 2 * * *"
+    - cron: "17 4 * * *"
   workflow_dispatch:
 permissions:
   contents: write
