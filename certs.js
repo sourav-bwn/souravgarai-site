@@ -2,6 +2,7 @@
 // n=name, i=issuer display name, k=issuer key (cisco|mongo|myb), d=date earned,
 // s=score/result chip (optional), x=1-2 line description, v=public verification URL (optional)
 window.CERTS=[
+{n:"HTML Essentials",img:"assets/certs/cisco-html-essentials.png",i:"Cisco Networking Academy",k:"cisco",d:"16 Oct 2026",s:"Final exam · 95%",x:"Fundamentals of HTML: creating structured, interactive web pages from scratch. A 30-hour course.",v:"https://www.netacad.com/certificates/?issuanceId=0dd51731-4fdd-4124-80ff-58aae8f2e4a0"},
 {n:"Python Essentials 1",img:"assets/certs/cisco-python-essentials-1.png",i:"Cisco Networking Academy",k:"cisco",d:"16 Oct 2026",x:"Fundamental programming concepts and building coding skills with Python. A 30-hour course.",v:"https://www.netacad.com/certificates/?issuanceId=610a41ce-a430-4ffe-9c29-287d657decaf"},
 {n:"Data Analytics Essentials",img:"assets/certs/cisco-data-analytics-essentials.png",i:"Cisco Networking Academy",k:"cisco",d:"16 Oct 2026",s:"Final exam · 98%",x:"Essential analytics tools: data storytelling, dashboards, visualization, Excel, Tableau and SQL. A 30-hour course.",v:"https://www.netacad.com/certificates/?issuanceId=51d662a8-e38c-47b8-8288-5d733ced2044"},
 {n:"Introduction to Data Science",img:"assets/certs/cisco-intro-data-science.png",i:"Cisco Networking Academy",k:"cisco",d:"16 Oct 2026",s:"Final exam · 95%",x:"How data is transforming the world and opening up new jobs. A 6-hour course.",v:"https://www.netacad.com/certificates/?issuanceId=ae56e2dc-c04f-4725-8088-bb442c6b5d0c"},
