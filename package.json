@@ -1,0 +1,8 @@
+{
+  "name": "souravgarai-site",
+  "private": true,
+  "description": "Personal portfolio and software development site. Plain HTML, CSS and JavaScript, no build step.",
+  "scripts": {
+    "test": "node --test"
+  }
+}
