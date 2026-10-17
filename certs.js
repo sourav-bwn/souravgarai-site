@@ -2,6 +2,8 @@
 // n=name, i=issuer display name, k=issuer key (cisco|mongo|myb), d=date earned,
 // s=score/result chip (optional), x=1-2 line description, v=public verification URL (optional)
 window.CERTS=[
+{n:"CRUD Operations in MongoDB",img:"assets/certs/mongodb-crud-operations.png",i:"MongoDB University",k:"mongo",f:"assets/certs/mongodb-skill-badges-dashboard-6.png",d:"17 Oct 2026",s:"Skill check · 10/10",x:"Create, read, update and delete documents in MongoDB. Credly skill badge.",v:null},
+{n:"MongoDB Schema Design Patterns and Anti-patterns",img:"assets/certs/mongodb-schema-design-patterns.png",i:"MongoDB University",k:"mongo",f:"assets/certs/mongodb-skill-badges-dashboard-7.png",d:"17 Oct 2026",s:"Skill check · 10/10",x:"Schema design patterns and anti-patterns for modeling data in MongoDB. Credly skill badge.",v:null},
 {n:"Indexing Design Fundamentals",img:"assets/certs/mongodb-indexing-design.png",i:"MongoDB University",k:"mongo",f:"assets/certs/mongodb-skill-badges-dashboard-5.png",d:"16 Oct 2026",s:"Skill check · passed",x:"MongoDB index types and design fundamentals for faster queries. Credly skill badge.",v:null},
 {n:"MongoDB Overview",img:"assets/certs/mongodb-overview.png",i:"MongoDB University",k:"mongo",f:"assets/certs/mongodb-skill-badges-dashboard-5.png",d:"16 Oct 2026",s:"Skill check · passed",x:"Core concepts of MongoDB's document database. Credly skill badge.",v:null},
 {n:"Building an App with Code Agents and MongoDB",img:"assets/certs/mongodb-code-agents.png",i:"MongoDB University",k:"mongo",f:"assets/certs/mongodb-skill-badges-dashboard.png",d:"16 Oct 2026",s:"Skill check · passed",x:"Building applications with AI code agents backed by MongoDB. Credly skill badge.",v:null},
@@ -30,3 +32,4 @@ window.CERTS=[
 {n:"GK Quiz (2026-27)",img:"assets/certs/mybharat-gk-quiz-2026-27.png",i:"MYBharat · Govt. of India",k:"myb",f:"assets/certs/mybharat-gk-quiz-2026-27.png",d:"15 Oct 2026",s:"Score · 19/20",x:"National general-knowledge quiz on MYBharat. Certificate of Participation.",v:null},
 {n:"VBYLD 2027 Quiz",img:"assets/certs/mybharat-vbyld-2027-quiz.png",i:"MYBharat · Govt. of India",k:"myb",f:"assets/certs/mybharat-vbyld-2027-quiz.png",d:"7 Sep 2026",s:"Score · 20/20",x:"Viksit Bharat Young Leaders Dialogue 2027, Stage I quiz. Certificate of Participation.",v:null}
 ];
+
