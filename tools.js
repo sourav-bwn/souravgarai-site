@@ -47,16 +47,23 @@ vbtn.addEventListener('click',function(){
 vin.addEventListener('keydown',function(e){if(e.key==='Enter')vbtn.click()});
 function renderVideo(i){
   vState.info=i;
-  var opts=[];(i.heights||[]).forEach(function(h){opts.push([String(h),h+'p','MP4'])});
-  if(!opts.length)opts.push(['best','Best available','MP4']);
-  opts.push(['audio','Audio only','MP3']);
-  vState.q=opts.some(function(o){return o[0]==='720'})?'720':opts[0][0];
+  var opts=[],cap=i.limit||314572800,anyBig=false;
+  function sz(n){return n?'~'+(n>=1073741824?(n/1073741824).toFixed(1)+' GB':n>=104857600?Math.round(n/1048576)+' MB':fmt(n)):''}
+  if(i.options&&i.options.length){i.options.forEach(function(o){
+    var big=o.fits===false;if(big)anyBig=true;
+    opts.push([String(o.height),o.height+'p',big?'Too big · '+sz(o.size):(o.size?sz(o.size):'Size unknown'),big,o.label||''])})}
+  else (i.heights||[]).forEach(function(h){opts.push([String(h),h+'p','MP4',false,''])});
+  if(!opts.length)opts.push(['best','Best available','Size unknown',false,'']);
+  opts.push(['audio','Audio only',i.audio_size?'MP3 · '+sz(i.audio_size):'MP3',false,'']);
+  var ok=opts.filter(function(o){return !o[3]});
+  vState.q=(ok.filter(function(o){return o[0]==='720'})[0]||ok.filter(function(o){return o[0]!=='audio'})[0]||ok[0]||opts[0])[0];
   var h='<div class="pv">'+(i.thumbnail?'<img class="th" src="'+esc(i.thumbnail)+'" alt="" referrerpolicy="no-referrer" loading="lazy">':'<div class="th">▶</div>')+'<div><b>'+esc(i.title||'Video')+'</b><small>'+esc([i.uploader,dur(i.duration),i.site].filter(Boolean).join(' · '))+'</small></div></div>';
-  h+='<div class="qs">'+opts.map(function(o){return '<button type="button" class="q'+(o[0]===vState.q?' on':'')+'" data-q="'+o[0]+'"><b>'+o[1]+'</b><small>'+o[2]+'</small></button>'}).join('')+'</div>';
+  h+='<div class="qs">'+opts.map(function(o){return '<button type="button" class="q'+(o[0]===vState.q?' on':'')+(o[3]?' dis':'')+'" data-q="'+o[0]+'"'+(o[3]?' disabled aria-disabled="true"':'')+'>'+(o[4]?'<em>'+o[4]+'</em>':'')+'<b>'+o[1]+'</b><small>'+o[2]+'</small></button>'}).join('')+'</div>';
+  if(anyBig)h+='<p class="note" style="margin:-4px 0 12px">Qualities marked <b>Too big</b> are over the '+Math.round(cap/1048576)+' MB limit of this free server. Pick a smaller one. Sizes are approximate.</p>';
   h+='<button type="button" class="btn p wide" id="v-dl"></button><div id="v-prog" hidden><div class="pr"><i></i></div><div class="note" id="v-ptxt"></div></div>';
   vres.innerHTML=h;vres.hidden=false;
   var dl=$('#v-dl');function lbl(){var o=opts.filter(function(x){return x[0]===vState.q})[0];dl.textContent='⬇ Download '+o[1]}lbl();
-  $$('.q',vres).forEach(function(b){b.addEventListener('click',function(){vState.q=b.dataset.q;$$('.q',vres).forEach(function(x){x.classList.toggle('on',x===b)});lbl()})});
+  $$('.q',vres).forEach(function(b){b.addEventListener('click',function(){if(b.disabled)return;vState.q=b.dataset.q;$$('.q',vres).forEach(function(x){x.classList.toggle('on',x===b)});lbl()})});
   dl.addEventListener('click',function(){download(dl)});
 }
 function download(btn){
