@@ -70,6 +70,18 @@ test('kb.js chatbot answers keep the documented shape', () => {
   }
 });
 
+test('homepage certificate count fallback matches the real record count', () => {
+  // index.html shows "All <span data-certs-count>N</span> certificates". JS
+  // overwrites N live, but the static fallback must still be right for no-JS
+  // visitors and crawlers - it drifted once already (29 vs 35 records).
+  const win = {}; new Function('window', read('certs.js'))(win);
+  const html = read('index.html');
+  const m = html.match(/<span data-certs-count>(\d+)<\/span>/);
+  assert.ok(m, 'index.html keeps a data-certs-count span for the count');
+  assert.equal(Number(m[1]), win.CERTS.length,
+    'fallback count in index.html must equal certs.js record count');
+});
+
 test('certs.js entries follow the documented schema with existing files', () => {
   const win = {}; new Function('window', read('certs.js'))(win);
   const certs = win.CERTS;
