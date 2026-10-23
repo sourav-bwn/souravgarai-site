@@ -18,6 +18,11 @@ var lim=+g.getAttribute('data-limit')||0,list=window.CERTS||[];
 if(lim>0)list=list.slice(0,lim);
 g.innerHTML=list.map(card).join('');
 });
+// Keep any "All N certificates" count honest: fill [data-certs-count] with the
+// real record count so the homepage can never drift from certs.js again.
+document.querySelectorAll('[data-certs-count]').forEach(function(el){
+el.textContent=String((window.CERTS||[]).length);
+});
 document.querySelectorAll('.fl').forEach(function(f){f.addEventListener('click',function(){
 var k=f.dataset.f;
 document.querySelectorAll('[data-certs] .card').forEach(function(c){c.classList.toggle('hide',k!=='all'&&c.dataset.k!==k)});
