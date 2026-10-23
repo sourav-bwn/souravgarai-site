@@ -92,6 +92,9 @@ test('certs.js entries follow the documented schema with existing files', () => 
       assert.ok(c[field], `${c.n || '?'} missing ${field}`);
     assert.ok(keys.has(c.k), `${c.n} issuer key ${c.k} matches a filter tab`);
     for (const field of ['img', 'f'])
-      if (c[field]) assert.ok(fs.existsSync(path.join(root, c[field])), `${c.n} missing ${c[field]}`);
+      // Hosted URLs (e.g. Credly badge images) need no local file; only
+      // site-local proof files must exist in the repo.
+      if (c[field] && !/^https?:\/\//.test(c[field]))
+        assert.ok(fs.existsSync(path.join(root, c[field])), `${c.n} missing ${c[field]}`);
   }
 });
