@@ -18,13 +18,13 @@
 </div>
 <div id="mtoast" aria-hidden="true"></div>
 <style>
-#mascot{position:fixed;right:16px;bottom:76px;width:64px;height:64px;z-index:40;cursor:pointer}
+#mascot{position:fixed;right:16px;bottom:76px;width:64px;height:64px;z-index:40;cursor:pointer;will-change:transform}
 @media(max-width:480px){#mascot{width:48px;height:48px;right:12px;bottom:74px}}
 #mascot svg{display:block;overflow:visible}
-#mascot .mbody{transform-box:fill-box;transform-origin:50% 100%;width:100%;height:100%}
+#mascot .mbody{transform-box:fill-box;transform-origin:50% 100%;width:100%;height:100%;will-change:transform}
 #mascot .mbody{position:relative}
 #mascot .mbody img.mbase{width:100%;height:100%;display:block;pointer-events:none;filter:drop-shadow(0 6px 12px rgba(0,0,0,.38))}
-#mascot .mbody img.mpups{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;-webkit-mask-image:url(bolt-facemask.png);mask-image:url(bolt-facemask.png);-webkit-mask-size:100% 100%;mask-size:100% 100%}
+#mascot .mbody img.mpups{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;will-change:transform;-webkit-mask-image:url(bolt-facemask.png);mask-image:url(bolt-facemask.png);-webkit-mask-size:100% 100%;mask-size:100% 100%}
 #mascot .mwhite{fill:#fffdf8;stroke:#e89b2e;stroke-width:1.2}
 #mascot .mbrow{fill:none;stroke:#a35e00;stroke-width:2.6;stroke-linecap:round;opacity:.85}
 #mascot .mmouth-open{display:none}
@@ -59,7 +59,8 @@
 #mascot.sleep .mzzz text:nth-child(3){animation-delay:1s}
 @keyframes mhop{0%{transform:translateY(0) scale(1,1)}18%{transform:translateY(-8px) scale(.94,1.07)}40%{transform:translateY(-26px) scale(.96,1.04)}60%{transform:translateY(0) scale(1.10,.88)}72%{transform:translateY(0) scale(.97,1.03)}84%{transform:translateY(-3px) scale(1.02,.98)}100%{transform:translateY(0) scale(1,1)}}
 #mascot.hop .mbody{animation:mhop .95s ease-out}
-#mascot{transition:top .55s cubic-bezier(.4,.1,.2,1),left .55s cubic-bezier(.4,.1,.2,1),opacity .18s ease}
+#mascot{transition:transform .55s cubic-bezier(.4,.1,.2,1),opacity .18s ease}
+#mascot.mnotrans{transition:none}
 #mascot.mfade,#mascot.mhide{opacity:0}
 #mascot.mhide{pointer-events:none}
 #mascot .mbub{position:absolute;right:calc(100% + 12px);top:50%;transform:translateY(-50%) scale(.7);transform-origin:right center;background:#17100b;color:#f5ede6;border:1px solid rgba(255,176,32,.45);border-radius:12px;padding:8px 12px;font:500 13px/1.35 Inter,system-ui,sans-serif;width:max-content;max-width:190px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;box-shadow:0 8px 24px rgba(0,0,0,.4)}
@@ -168,38 +169,39 @@ addStop(prim(h2(/^The company/)),"Start yours.",0.7,0.42,"r");
 addStop(prim(document.querySelector('.closer'),'.btn.p.big'),"Your project starts here.",0.7,0.85,"r");
 stops.sort(function(a,b){return a.n.compareDocumentPosition(b.n)&4?-1:1});
 
-var active=null,tick=false,hopTimer=null,pendBub=false;
+var active=null,tick=false,hopTimer=null,pendBub=false,based=false,curL=null,curT=null;
 function size(){return innerWidth<=480?48:64}
-function snapTo(l,t){el.style.transition='none';el.style.left=l+'px';el.style.top=t+'px';void el.offsetWidth;el.style.transition=''}
+function base(){if(based)return;based=true;var rr=el.getBoundingClientRect();el.style.right='auto';el.style.bottom='auto';el.style.left='0px';el.style.top='0px';el.classList.add('mnotrans');setPos(rr.left,rr.top);void el.offsetWidth;el.classList.remove('mnotrans')}
+function setPos(l,t){curL=l;curT=t;el.style.transform='translate3d('+l+'px,'+t+'px,0)'}
+function snapTo(l,t){el.classList.add('mnotrans');setPos(l,t);void el.offsetWidth;el.classList.remove('mnotrans')}
 function doHop(){el.classList.add('hop');if(BL)BL.hop();clearTimeout(hopTimer);hopTimer=setTimeout(function(){el.classList.remove('hop')},980)}
 function place(){
 tick=false;
 if(!stops.length)return;
-var S=size(),a=stops[0];
-for(var i=0;i<stops.length;i++){var r0=stops[i].n.getBoundingClientRect();if(r0.top+r0.height/2<=innerHeight*stops[i].lf)a=stops[i];else break}
-var ra=a.n.getBoundingClientRect();
-if(ra.bottom<130){var nx=stops[stops.indexOf(a)+1];if(nx)a=nx}
-var r=a.n.getBoundingClientRect();
+var S=size(),a=stops[0],r=stops[0].n.getBoundingClientRect();
+for(var i=0;i<stops.length;i++){var r0=stops[i].n.getBoundingClientRect();if(r0.top+r0.height/2<=innerHeight*stops[i].lf){a=stops[i];r=r0}else break}
+if(r.bottom<130){var nx=stops[stops.indexOf(a)+1];if(nx){a=nx;r=a.n.getBoundingClientRect()}}
 var l=Math.min(Math.max(r.right-S*a.dxf,8),innerWidth-S-8);
 var t=Math.min(Math.max(r.top-S+10,70),innerHeight-S-6);
 var raw=r.top-S+10,hid=raw>innerHeight-S-6||raw<=70;
 var wasHid=el.classList.contains('mhide');
-el.style.right='auto';el.style.bottom='auto';
+base();
 if(a!==active){
-var oldL=parseFloat(el.style.left)||l,oldT=parseFloat(el.style.top)||t;
+var oldL=curL,oldT=curT;
 active=a;
 bub.classList.toggle('r',a.side==='r'||(!a.side&&l<230));
 bub.classList.remove('show');toast.classList.remove('show');clearTimeout(bubTimer);
+el.classList.remove('mnotrans');
 el.classList.toggle('mhide',hid);
 if(hid){snapTo(l,t);pendBub=true}
 else if(Math.hypot(l-oldL,t-oldT)>250){
 pendBub=false;
 el.classList.add('mfade');snapTo(l,t);
 setTimeout(function(){el.classList.remove('mfade');if(active===a&&!el.classList.contains('mhide')){showBub(a.text);doHop()}},180);
-}else{pendBub=false;el.style.left=l+'px';el.style.top=t+'px';showBub(a.text);doHop()}
+}else{pendBub=false;setPos(l,t);showBub(a.text);doHop()}
 }else if(hid){el.classList.add('mhide');snapTo(l,t)}
 else if(wasHid){el.classList.remove('mhide');snapTo(l,t);if(pendBub){pendBub=false;showBub(a.text);doHop()}}
-else{el.style.left=l+'px';el.style.top=t+'px'}
+else{el.classList.add('mnotrans');setPos(l,t)}
 }
 addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(place)}},{passive:true});
 addEventListener('resize',place);
