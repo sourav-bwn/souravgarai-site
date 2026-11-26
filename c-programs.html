@@ -1,0 +1,43 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>C Programs - Sourav Garai</title><meta name="description" content="C programs by Sourav Garai: linear search with first index and count."><meta name="theme-color" content="#0a0605"><meta property="og:title" content="C Programs - Sourav Garai"><meta property="og:description" content="C programs by Sourav Garai."><meta property="og:type" content="website"><meta property="og:site_name" content="Sourav Garai"><meta property="og:image" content="https://sourav-garai.vercel.app/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="C Programs - Sourav Garai"><meta name="twitter:description" content="C programs by Sourav Garai."><meta name="twitter:image" content="https://sourav-garai.vercel.app/og.png"><link rel="alternate" type="text/plain" href="resume.pdf"><link rel="icon" href="favicon.svg">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('sg-theme')||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script><link rel="stylesheet" href="style.css"></head><body>
+<div id="ld"><div class="orb">SG</div></div><div id="wipe"></div><div id="prog"></div><div id="cur"></div>
+<header><div class="wrap"><nav><a class="logo" href="index.html">SOURAV<i>.</i>GARAI</a><div class="nl"><div class="nbk"><button type="button" class="nb nb-c">✕ Close</button><button type="button" class="nb nb-b">← Back</button></div><a href="index.html" class="">Home</a><a href="products.html" class="">Products</a><a href="services.html" class="">Services</a><a href="tools.html" class="">Tools</a><a href="github.html" class="">GitHub</a><a href="certificates.html" class="">Certificates</a><a href="blog.html" class="">Blog</a><a href="about.html" class="">About</a><a href="contact.html" class="">Contact</a><a class="nav-cta" href="contact.html">Work with me</a><div class="tog" role="button" aria-label="Toggle theme" tabindex="0"></div></div><button class="burger" aria-label="Menu">☰</button></nav></div></header>
+<main><div class="wrap"><div class="pgh"><div class="lab">// C Programs</div><h1>C Programs</h1><p class="sub">Programs I wrote for my C lab. Each one is the exact code I ran.</p></div>
+<div class="grid"><article class="card" style="grid-column:1/-1;padding:22px"><h2 style="margin:0 0 6px">Linear search with count</h2><p class="sub" style="margin:0 0 14px">Reads n numbers and a key. Prints the index of the first match (or Not Found) and how many times the key appears.</p><pre style="overflow:auto;padding:16px;border-radius:12px;background:rgba(127,127,127,.14);font:14px/1.55 Consolas,Menlo,monospace;white-space:pre"><code>#include &lt;stdio.h&gt;
+
+int search(int a[], int n, int key) {
+    int i;
+    for (i = 0; i &lt; n; i++) {
+        if (a[i] == key)
+            return i;
+    }
+    return -1;
+}
+
+int main() {
+    int a[100], n, i, key, count = 0, pos;
+    printf("How many numbers? ");
+    scanf("%d", &amp;n);
+    printf("Enter numbers:\n");
+    for (i = 0; i &lt; n; i++)
+        scanf("%d", &amp;a[i]);
+
+    printf("Enter key to search: ");
+    scanf("%d", &amp;key);
+
+    pos = search(a, n, key);
+    if (pos == -1)
+        printf("Not Found");
+    else
+        printf("Found at index %d\n", pos);
+
+    for (i = 0; i &lt; n; i++)
+        if (a[i] == key)
+            count++;
+    printf("Count = %d", count);
+    return 0;
+}
+</code></pre></article></div>
+</div></main>
+<footer><div class="wrap fi"><span>© Sourav Garai · Software development</span><span><a href="https://github.com/sourav-bwn" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/souravbwn" target="_blank" rel="noopener">LinkedIn</a> · <a href="mailto:souravgarai.bwn@gmail.com">Email</a> · <a href="resume.pdf" target="_blank">Resume</a></span></div></footer>
+<div id="bot"></div><script src="data.js"></script><script src="kb.js"></script><script src="app.js"></script><script src="chat.js"></script><script defer src="/_vercel/insights/script.js"></script></body></html>
